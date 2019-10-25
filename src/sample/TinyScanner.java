@@ -21,7 +21,7 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 public class TinyScanner extends Application {
 
-    public enum States {start, Number , Identifier , inAssign,  Comment, done, error}
+    public enum States {start, Number , Identifier , inAssign,  Comment, done, Error}
     private String wholeFile;
     private int pointer = 0;
     private States state = States.start;
@@ -66,7 +66,7 @@ public class TinyScanner extends Application {
                     currentTokenValue += c;
                     currentTokenType = state.toString();
                     continue;
-                case error:
+                case Error:
                     currentTokenValue += c;
                     currentTokenType = state.toString();
                     continue;
@@ -112,7 +112,7 @@ public class TinyScanner extends Application {
                 state = States.done;
             }
             else
-                state = States.error;
+                state = States.Error;
         } else if (state.equals(States.Comment)) {
             if (c == '}') {
                 currentTokenValue += c;
@@ -128,17 +128,17 @@ public class TinyScanner extends Application {
             } else if(c==' ') {
                 state = States.done;
             } else {
-                state = States.error;
+                state = States.Error;
             }
         } else if (state.equals(States.Number)) {
             if (Character.isDigit(c) || c=='.') {
                 state = States.Number;
             } else if (Character.isLetter(c)) {
-                state = States.error;
+                state = States.Error;
             } else if(c==' ') {
                 state = States.done;
             } else {
-                state = States.error;
+                state = States.Error;
             }
         } else if (state.equals(States.inAssign)) {
             if (c == '='  ) {
@@ -149,11 +149,11 @@ public class TinyScanner extends Application {
         } else if (state.equals(States.done)) {
             state = States.start;
         }
-         else if (state.equals(States.error)) {
+         else if (state.equals(States.Error)) {
             if (c == ' '  )
                 state = States.done;
             else
-                state = States.error;
+                state = States.Error;
         }
     }
 
