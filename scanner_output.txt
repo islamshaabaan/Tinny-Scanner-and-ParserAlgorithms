@@ -1,0 +1,52 @@
+{ Sample program in TINY language – computes factorial     } : inComment
+read : Reserved Word
+x : Identifier
+; : Special Symbol
+{input an integer } : inComment
+if : Reserved Word
+0 : Number
+< : Special Symbol
+x : Identifier
+then : Reserved Word
+{  don’t compute if x  < = 0 } : inComment
+fact : Identifier
+:= : Special Symbol
+1 : Number
+; : Special Symbol
+repeat : Reserved Word
+fact : Identifier
+:= : Special Symbol
+fact : Identifier
+* : Special Symbol
+x : Identifier
+; : Special Symbol
+x : Identifier
+:= : Special Symbol
+x : Identifier
+- : Special Symbol
+1 : Number
+until : Reserved Word
+x : Identifier
+=  : Special Symbol
+0 : Number
+; : Special Symbol
+write : Reserved Word
+fact : Identifier
+{  output  factorial of x } : inComment
+end : Reserved Word
+x : Identifier
+== : Special Symbol
+x : Identifier
++ : Special Symbol
+11.21 : Number
+; : Special Symbol
+x : Identifier
+!= : Special Symbol
+x221 : Identifier
+/ : Special Symbol
+1 : Number
+; : Special Symbol
+2x : error
+=  : Special Symbol
+1 : Number
+; : Special Symbol
