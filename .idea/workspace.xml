@@ -68,15 +68,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/sample/TinyScanner.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1972">
-              <caret line="245" selection-start-line="245" selection-end-line="245" />
+            <state relative-caret-position="17">
+              <caret line="115" lean-forward="true" selection-start-line="115" selection-end-line="115" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1054#1061#0" expanded="true" />
-                <element signature="method#isSpecialCharacter#0;class#TinyScanner#0" />
-                <element signature="method#getTokens#0;class#TinyScanner#0" />
-                <element signature="method#setState#0;class#TinyScanner#0" />
-                <element signature="method#isReservedWord#0;class#TinyScanner#0" />
+                <element signature="e#1081#1088#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -143,6 +139,7 @@
     <option name="width" value="1300" />
     <option name="height" value="740" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectReloadState">
     <option name="STATE" value="0" />
   </component>
@@ -336,7 +333,8 @@
     <option name="totallyTimeSpent" value="1302000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1296" height="696" extended-state="7" />
+    <frame x="-8" y="-8" width="1296" height="696" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.2588997" />
       <window_info id="Structure" order="1" weight="0.25" />
@@ -423,8 +421,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/sample/TinyScanner.java</url>
-          <line>40</line>
-          <properties class="sample.TinyScanner" method="getTokens">
+          <line>44</line>
+          <properties class="sample.TinyScanner">
             <option name="EMULATED" value="true" />
           </properties>
           <option name="timeStamp" value="8" />
@@ -460,18 +458,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/TableViewSample.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="36" column="71" selection-start-line="36" selection-start-column="8" selection-end-line="36" selection-end-column="71" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#490#491#0" expanded="true" />
-            <element signature="e#518#519#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/TableViewSample.java" />
     <entry file="file://$PROJECT_DIR$/src/sample/sample.fxml">
       <provider editor-type-id="JavaFX-Scene-Builder" />
       <provider selected="true" editor-type-id="text-editor">
@@ -480,19 +467,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/TypeOrValueException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="1" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
-          <folding>
-            <element signature="e#142#143#0" expanded="true" />
-            <element signature="e#191#192#0" expanded="true" />
-            <element signature="e#247#248#0" expanded="true" />
-            <element signature="e#311#312#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/TypeOrValueException.java" />
     <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -517,15 +492,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/TinyScanner.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1972">
-          <caret line="245" selection-start-line="245" selection-end-line="245" />
+        <state relative-caret-position="17">
+          <caret line="115" lean-forward="true" selection-start-line="115" selection-end-line="115" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1054#1061#0" expanded="true" />
-            <element signature="method#isSpecialCharacter#0;class#TinyScanner#0" />
-            <element signature="method#getTokens#0;class#TinyScanner#0" />
-            <element signature="method#setState#0;class#TinyScanner#0" />
-            <element signature="method#isReservedWord#0;class#TinyScanner#0" />
+            <element signature="e#1081#1088#0" expanded="true" />
           </folding>
         </state>
       </provider>
