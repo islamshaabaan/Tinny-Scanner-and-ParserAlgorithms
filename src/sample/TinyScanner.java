@@ -21,7 +21,7 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 public class TinyScanner extends Application {
 
-    public enum States {start, Number , Identifier , inAssign, inComment, done, error}
+    public enum States {start, Number , Identifier , inAssign,  Comment, done, error}
     private String wholeFile;
     private int pointer = 0;
     private States state = States.start;
@@ -50,7 +50,7 @@ public class TinyScanner extends Application {
             switch (state) {
                 case start:
                     continue;
-                case inComment:
+                case  Comment:
                     currentTokenValue += c;
                     currentTokenType = state.toString();
                     continue;
@@ -97,7 +97,7 @@ public class TinyScanner extends Application {
             if (Character.isWhitespace(c)) {
                 state = States.start;
             } else if (c == '{') {
-                state = States.inComment;
+                state = States.Comment;
             } else if (Character.isDigit(c)) {
                 state = States.Number;
             } else if (Character.isLetter(c)) {
@@ -113,12 +113,12 @@ public class TinyScanner extends Application {
             }
             else
                 state = States.error;
-        } else if (state.equals(States.inComment)) {
+        } else if (state.equals(States.Comment)) {
             if (c == '}') {
                 currentTokenValue += c;
                 state = States.done;
             } else {
-                state = States.inComment;
+                state = States.Comment;
             }
         } else if (state.equals(States.Identifier)) {
             if (Character.isLetter(c)) {
