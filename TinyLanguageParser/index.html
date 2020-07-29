@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<canvas id="myCanvas" width="4000" height="1200" style="border:1px solid #d3d3d3;">
+    Your browser does not support the HTML5 canvas tag.</canvas>
+<script type="text/javascript" src="output.js"></script>
+<script>
+
+var xLevel=0;
+var yLevel=0;
+const RECT_WIDTH=125;
+const RECT_LENGTH=30;
+const CIRCLE_RADIUS = 40;
+const TEXT_PAD_LEFT = 18;
+const TEXT_PAD_TOP = 18;
+const LEVEL_WIDTH=140;
+const LEVEL_LENGTH=100;
+ startPoint={
+  x:50,
+  y:50
+};
+ currentPoint={
+  x:50,
+  y:50
+};
+var drawRect = function(text,ctx){
+  var xNow = currentPoint.x;
+  var yNow = currentPoint.y;
+ctx.moveTo(xNow,yNow);
+ctx.fillRect(xNow,yNow,RECT_WIDTH,RECT_LENGTH);
+ctx.fillStyle = "#000000";
+ctx.fillText(text,xNow+TEXT_PAD_LEFT,yNow+TEXT_PAD_TOP);
+ctx.fillStyle = "#3CC231";
+}
+var drawCircle = function(text,ctx){
+  var xNow = currentPoint.x;
+  var yNow = currentPoint.y;
+ctx.beginPath();
+ctx.arc(xNow+LEVEL_WIDTH/2,yNow+LEVEL_LENGTH/2,CIRCLE_RADIUS,0,2*Math.PI);
+ctx.fill();
+ctx.fillStyle = "#000000";
+ctx.fillText(text,xNow+TEXT_PAD_LEFT+LEVEL_WIDTH/5,yNow+TEXT_PAD_TOP+LEVEL_LENGTH/3);
+ctx.fillStyle = "#3CC231";
+}
+var connect = function(fromLevelX,fromLevelY,toLevelX,toLevelY,ctx){
+  var xNow = currentPoint.x;
+  var yNow = currentPoint.y;
+  ctx.moveTo(fromLevelX*LEVEL_WIDTH+startPoint.x+LEVEL_WIDTH/2,fromLevelY*LEVEL_LENGTH+startPoint.y+LEVEL_LENGTH/2);
+  ctx.lineTo(toLevelX*LEVEL_WIDTH+startPoint.x+LEVEL_WIDTH/2,toLevelY*LEVEL_LENGTH+startPoint.y+LEVEL_LENGTH/2);
+  ctx.strokeStyle = "#3CC231";
+  ctx.stroke();
+  ctx.moveTo(xNow,yNow);
+}
+var advanceLevelX = function(){
+  xLevel++;
+  currentPoint.x = xLevel*LEVEL_WIDTH+startPoint.x;
+}
+var advanceLevelY = function(){
+  yLevel++;
+  currentPoint.y = yLevel*LEVEL_LENGTH+startPoint.y;
+}
+var reverseLevelX = function(){
+  xLevel--;
+  currentPoint.x = xLevel*LEVEL_WIDTH+startPoint.x;
+}
+var reverseLevelY = function(){
+  yLevel--;
+  currentPoint.y = yLevel*LEVEL_LENGTH+startPoint.y;
+}
+var c = document.getElementById("myCanvas");
+var ctx = c.getContext("2d");
+ctx.fillStyle = "#3CC231";
+ctx.font="16px sans-serif";
+
+
+
+var id = 0
+myObj = varname
+
+var statements = function(obj,sibx,siby){
+var first = true;
+var siblingLevelX = sibx;
+var siblingLevelY = siby;
+//console.log(Object.keys(obj[id])[0])
+  for(x in obj){
+    var statement = Object.keys(obj[id])[0];
+
+    if(statement.includes("if")){
+      drawRect("if",ctx);
+      advanceLevelY();
+      if(first===true){
+        first=false;
+      }else{
+        connect(siblingLevelX,siblingLevelY,xLevel,yLevel-1,ctx);
+        siblingLevelX = xLevel;
+        siblingLevelY = yLevel-1;
+      }
+      ifStatement(obj[id++]["ifStatement"],xLevel,yLevel-1);
+      reverseLevelY();
+      advanceLevelX();
+    }
+    else if(statement.includes("repeat")){
+      drawRect("repeat",ctx);
+      advanceLevelY();
+      if(first===true){
+        first=false;
+      }else{
+        connect(siblingLevelX,siblingLevelY,xLevel,yLevel-1,ctx);
+        siblingLevelX = xLevel;
+        siblingLevelY = yLevel-1;
+      }
+      repeatStatement(obj[id++]["repeatStatement"],xLevel,yLevel-1);
+      reverseLevelY();
+      advanceLevelX();
+    }
+    else if(statement.includes("write")){
+      drawRect("write",ctx);
+      advanceLevelY();
+      if(first===true){
+        first=false;
+      }else{
+        connect(siblingLevelX,siblingLevelY,xLevel,yLevel-1,ctx);
+        siblingLevelX = xLevel;
+        siblingLevelY = yLevel-1;
+      }
+      writeStatement(obj[id++]["writeStatement"],xLevel,yLevel-1);
+      reverseLevelY();
+      advanceLevelX();
+    }
+    else if(statement.includes("assign")){
+      drawRect("assign<"+obj[id]["assign"]["IdentifierName"]+">",ctx);
+      advanceLevelY();
+      if(first===true){
+        first=false;
+      }else{
+        connect(siblingLevelX,siblingLevelY,xLevel,yLevel-1,ctx);
+        siblingLevelX = xLevel;
+        siblingLevelY = yLevel-1;
+      }
+      assignStatement(obj[id++]["assign"],xLevel,yLevel-1);
+      reverseLevelY();
+      advanceLevelX();
+    }
+    else if(statement.includes("read")){
+     // console.log(obj[id])
+      drawRect("read<"+obj[id++]["readStatement"]+">",ctx);
+      if(first===true){
+        first=false;
+      }else{
+        connect(siblingLevelX,siblingLevelY,xLevel,yLevel-1,ctx);
+        siblingLevelX = xLevel;
+        siblingLevelY = yLevel-1;
+      }
+      advanceLevelX();
+    }
+  }
+}
+var ifStatement=function(obj,parentX,parentY){
+//assume test part is operation
+//test part
+operation(obj["testPart"],parentX,parentY);
+//reverseLevelY();
+advanceLevelX();
+//here next to operation part
+//then part
+connect(parentX,parentY,xLevel,yLevel,ctx);
+statements(obj["thenPart"],xLevel,yLevel);
+advanceLevelX();
+//else part
+  if(obj["elsePart"]!=null){
+    connect(parentX,parentY,xLevel,yLevel,ctx);
+    statements(obj["elsePart"],xLevel,yLevel);
+    //advanceLevelX();
+  }
+}
+var repeatStatement=function(obj,parentX,parentY){
+  //repeat body
+connect(parentX,parentY,xLevel,yLevel,ctx);
+statements(obj["repeatBody"],xLevel,yLevel);
+advanceLevelX();
+
+//repeat test assumed to be operation
+operation(obj["repeatTest"],parentX,parentY);
+
+
+}
+var writeStatement=function(obj,parentX,parentY){
+//identifier or constant or expression
+  if(obj["number"]!=null){
+    drawCircle("const<"+obj["number"]+">",ctx);
+    connect(parentX,parentY,xLevel,yLevel,ctx);
+  }else if(obj["identifier"]!=null){
+    drawCircle("id<"+obj["identifier"]+">",ctx);
+    connect(parentX,parentY,xLevel,yLevel,ctx);
+  }else if(obj["operation"]!=null){
+    operation(obj,parentX,parentY);
+    //reverseLevelY();
+    //advanceLevelX();
+  }
+}
+var assignStatement=function(obj,parentX,parentY){
+//identifier or constant or expression
+  if(obj["rightOperand"]["number"]!=null){
+    drawCircle("const<"+obj["rightOperand"]["number"]+">",ctx);
+    connect(parentX,parentY,xLevel,yLevel,ctx);
+  }else if(obj["rightOperand"]["identifier"]!=null){
+    drawCircle("id<"+obj["rightOperand"]["identifier"]+">",ctx);
+    connect(parentX,parentY,xLevel,yLevel,ctx);
+  }else if(obj["rightOperand"]["operation"]!=null){
+    operation(obj["rightOperand"],parentX,parentY);
+    //reverseLevelY();
+    //advanceLevelX();
+  }
+}
+var operation=function(obj,parentX,parentY){
+  var parentOpX = xLevel; var parentOpY = yLevel;
+  if(obj["operation"]!=null){
+    //draw op sign
+    drawCircle("op<"+obj["operation"]["op"]+">",ctx);
+    connect(parentX,parentY,xLevel,yLevel,ctx);
+    advanceLevelY();
+    //draw left
+    if(obj["operation"]["leftOperand"]["operation"]==null){
+      if(obj["operation"]["leftOperand"]["identifier"]!=null){
+        drawCircle("id<"+obj["operation"]["leftOperand"]["identifier"]+">",ctx);
+      }else{
+        drawCircle("const<"+obj["operation"]["leftOperand"]["number"]+">",ctx);
+      }
+      connect(parentOpX,parentOpY,xLevel,yLevel,ctx);
+     // reverseLevelY();
+    }
+    else{
+      operation(obj["operation"]["leftOperand"],parentOpX,parentOpY);
+      //reverseLevelY();
+    }
+    advanceLevelX();
+    //draw right
+    if(obj["operation"]["rightOperand"]["operation"]==null){
+      if(obj["operation"]["rightOperand"]["identifier"]!=null){
+        drawCircle("id<"+obj["operation"]["rightOperand"]["identifier"]+">",ctx);
+      }else{
+        drawCircle("const<"+obj["operation"]["rightOperand"]["number"]+">",ctx);
+      }
+      connect(parentOpX,parentOpY,xLevel,yLevel,ctx);
+      reverseLevelY();
+    }
+    else{
+      operation(obj["operation"]["rightOperand"],parentOpX,parentOpY);
+      reverseLevelY();
+    }
+
+  }
+
+}
+ctx.fillStyle = 'white';
+ctx.fillRect(0,0,5000, 1500);
+ctx.fillStyle = '#3CC231';
+ctx.moveTo(startPoint.x,startPoint.y);
+statements(myObj,0,0);
+ctx.stroke();
+
+</script>
+
+</body>
+</html>
